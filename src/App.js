@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import Form from "./Form";
+import Finish from "./Finish";
 import formSchema from "./formSchema";
 import * as yup from 'yup';
 
@@ -30,9 +31,11 @@ const App = () => {
   const [ formValues, setFormValues ] = useState(initialFormValues);
   const [ formErrors, setFormErrors ] = useState(initialFormErrors);
   const [ disabled, setDisabled ] = useState(true);
+  const history = useHistory()
 
   const postNewPizza = newPizza => {
     console.log(newPizza);
+    history.push('./finish');
   }
 
   const validate = (name, value) => {
@@ -61,9 +64,9 @@ const App = () => {
     postNewPizza(newPizza);
   }
 
-  // useEffect(() => {
-  //   formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-  // }, [formErrors])
+  useEffect(() => {
+    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formErrors])
 
   return (
     <div className="App">
@@ -72,11 +75,14 @@ const App = () => {
 
         <nav>
           <Link to='/'><button>Home</button></Link>
-          <button>Help</button>
+          <a><button>Help</button></a>
         </nav>
       </header>
 
       <Switch>
+        <Route path='/finish'>
+          <Finish />
+        </Route>
         <Route path='/pizza'>
           <Form 
             change={inputChange} 

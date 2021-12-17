@@ -22,13 +22,15 @@ const Form = props => {
   }
   
   return (
-    <div>
+    <div className='pizza-build'>
       <h1>Build Your Own Pizza</h1>
 
       <form id='pizza-form' onSubmit={onSubmit}>
-        <div>
-          <h2>Enter your Name</h2>
-          <p>Required</p>
+        <div className='pizza-input'>
+          <div>
+            <h2>Enter your Name</h2>
+            <p>Required</p>
+          </div>
           <input 
             type='text'
             name='name'
@@ -38,9 +40,11 @@ const Form = props => {
           />
         </div>
 
-        <div>
-          <h2>Choice of Size</h2>
-          <p>Required</p>
+        <div className='pizza-input'>
+          <div>
+            <h2>Choice of Size</h2>
+            <p>Required</p>
+          </div>
           <select 
             name='size'
             value={values.size}
@@ -55,45 +59,57 @@ const Form = props => {
           </select>
         </div>
 
-        <div>
-          <h2>Add Toppings</h2>
-          <p>Choose up to 4</p>
-          <label>Extra Cheese
-            <input 
-              type='checkbox'
-              name='topping1'
-              checked={values.topping1}
-              onChange={onChange}
-            />
-          </label>
-          <label>Pepperoni
-            <input 
-              type='checkbox'
-              name='topping2'
-              checked={values.topping2}
-              onChange={onChange}
-            />
-          </label>
-          <label>Sausage
-            <input 
-              type='checkbox'
-              name='topping3'
-              checked={values.topping3}
-              onChange={onChange}
-            />
-          </label>
-          <label>Bacon
-            <input 
-              type='checkbox'
-              name='topping4'
-              checked={values.topping4}
-              onChange={onChange}
-            />
-          </label>
+        <div className='pizza-input'>
+          <div>
+            <h2>Add Toppings</h2>
+            <p>Choose up to 4</p>
+          </div>
+          <section id='pizza-checkbox'>
+            <label>
+              <input 
+                type='checkbox'
+                name='topping1'
+                checked={values.topping1}
+                onChange={onChange}
+              />
+              Extra Cheese
+            </label>
+            <label>
+              <input 
+                type='checkbox'
+                name='topping2'
+                checked={values.topping2}
+                onChange={onChange}
+              />
+              Pepperoni
+            </label>
+            <label>
+              <input 
+                type='checkbox'
+                name='topping3'
+                checked={values.topping3}
+                onChange={onChange}
+              />
+              Sausage
+            </label>
+            <label>
+              <input 
+                type='checkbox'
+                name='topping4'
+                checked={values.topping4}
+                onChange={onChange}
+              />
+              Bacon
+            </label>
+          </section>
         </div>
 
-        <div>
-          <h2>Special Instructions</h2>
+        <div className='pizza-input'>
+          <div>
+            <h2>Special Instructions</h2>
+            <p>Anything else you'd like to add?</p>
+          </div>
+          
           <input 
             type='text'
             name='special'
@@ -103,7 +119,7 @@ const Form = props => {
           />
         </div>
 
-        <div>
+        <div className='errors'>
           <div>{errors.name}</div>
           <div>{errors.size}</div>
         </div>
