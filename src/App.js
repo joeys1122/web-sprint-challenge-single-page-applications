@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Home from "./Home";
 import Form from "./Form";
+import formSchema from "./formSchema";
+import * as yup from 'yup';
 
 const initialFormValues = {
   name: '',
@@ -14,20 +16,27 @@ const initialFormValues = {
 }
 
 const initialFormErrors = {
-  name: '',
-  size: '',
-  special: ''
+  name: ''
 }
 
 const App = () => {
   const [ formValues, setFormValues ] = useState(initialFormValues);
   const [ formErrors, setFormErrors ] = useState(initialFormErrors);
+  const [ disabled, setDisabled ] = useState(true);
 
   const postNewPizza = newPizza => {
     console.log(newPizza);
   }
 
+  const validate = (name, value) => {
+    yup.reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...initialFormErrors, [name]: ''}))
+      .catch(error => setFormErrors({ ...initialFormErrors, [name]: error.errors[0]}))
+  }
+
   const inputChange = (name, value) => {
+    validate(name, value);
     setFormValues({ ...formValues, [name]: value });
   }
 
@@ -45,6 +54,10 @@ const App = () => {
     postNewPizza(newPizza);
   }
 
+  useEffect(() => {
+    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formErrors])
+
   return (
     <>
       <header>
@@ -58,7 +71,13 @@ const App = () => {
 
       <Switch>
         <Route path='/pizza'>
-          <Form change={inputChange} submit={formSubmit} values={formValues} errors={formErrors} />
+          <Form 
+            change={inputChange} 
+            submit={formSubmit} 
+            values={formValues} 
+            errors={formErrors} 
+            disabled={disabled} 
+          />
         </Route>
         <Route path='/'>
           <Home />

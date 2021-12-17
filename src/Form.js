@@ -6,7 +6,8 @@ const Form = props => {
     change,
     submit,
     values,
-    errors
+    errors,
+    disabled
   } = props
 
   const onSubmit = event => {
@@ -99,7 +100,12 @@ const Form = props => {
           />
         </div>
 
-        <button>Add to Order</button>
+        <div>
+          <div>{errors.name}</div>
+          <div>{errors.size}</div>
+        </div>
+
+        <button disabled={disabled}>Add to Order</button>
       </form>
     </div>
   )
