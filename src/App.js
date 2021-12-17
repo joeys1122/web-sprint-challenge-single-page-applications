@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Home from "./Home";
 import Form from "./Form";
 
+const initialFormValues = {
+  name: '',
+  size: '',
+  topping1: false,
+  topping2: false,
+  topping3: false,
+  topping4: false,
+  special: ''
+}
+
+const initialFormErrors = {
+  name: '',
+  size: '',
+  special: ''
+}
+
 const App = () => {
+  const [ formValues, setFormValues ] = useState(initialFormValues);
+  const [ formErrors, setFormErrors ] = useState(initialFormErrors);
+
+  const postNewPizza = newPizza => {
+    console.log(newPizza);
+  }
+
+  const inputChange = (name, value) => {
+    setFormValues({ ...formValues, [name]: value });
+  }
+
+  const formSubmit = () => {
+    const newPizza = {
+      name: formValues.name.trim(),
+      size: formValues.size,
+      topping1: !!formValues.topping1,
+      topping2: !!formValues.topping2,
+      topping3: !!formValues.topping3,
+      topping4: !!formValues.topping4,
+      special: formValues.special.trim()
+    }
+
+    postNewPizza(newPizza);
+  }
+
   return (
     <>
       <header>
@@ -17,7 +58,7 @@ const App = () => {
 
       <Switch>
         <Route path='/pizza'>
-          <Form />
+          <Form change={inputChange} submit={formSubmit} values={formValues} errors={formErrors} />
         </Route>
         <Route path='/'>
           <Home />
