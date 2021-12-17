@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from "react-router-dom";
+import "./App.css";
 import Home from "./Home";
 import Form from "./Form";
 import formSchema from "./formSchema";
@@ -16,7 +17,13 @@ const initialFormValues = {
 }
 
 const initialFormErrors = {
-  name: ''
+  name: '',
+  size: '',
+  topping1: false,
+  topping2: false,
+  topping3: false,
+  topping4: false,
+  special: ''
 }
 
 const App = () => {
@@ -54,12 +61,12 @@ const App = () => {
     postNewPizza(newPizza);
   }
 
-  useEffect(() => {
-    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-  }, [formErrors])
+  // useEffect(() => {
+  //   formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+  // }, [formErrors])
 
   return (
-    <>
+    <div className="App">
       <header>
         <h1>Lambda Eats</h1>
 
@@ -83,7 +90,7 @@ const App = () => {
           <Home />
         </Route>
       </Switch>
-    </>
+    </div>
   );
 };
 export default App;

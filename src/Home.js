@@ -11,9 +11,9 @@ const Home = () => {
   return (
     <>
       <div>
-        <div>
+        <div className='App-header'>
           <h1>Your favorite food, delivered while coding</h1>
-          <button onClick={routeToPizza}>Pizza?</button>
+          <button id='order-pizza' onClick={routeToPizza}>Pizza?</button>
         </div>
       </div>
     </>

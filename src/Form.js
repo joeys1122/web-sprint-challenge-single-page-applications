@@ -25,7 +25,7 @@ const Form = props => {
     <div>
       <h1>Build Your Own Pizza</h1>
 
-      <form onSubmit={onSubmit}>
+      <form id='pizza-form' onSubmit={onSubmit}>
         <div>
           <h2>Enter your Name</h2>
           <p>Required</p>
@@ -34,6 +34,7 @@ const Form = props => {
             name='name'
             value={values.name}
             onChange={onChange}
+            id='name-input'
           />
         </div>
 
@@ -44,6 +45,7 @@ const Form = props => {
             name='size'
             value={values.size}
             onChange={onChange}
+            id='size-dropdown'
           >
 
             <option value=''>Select</option>
@@ -97,6 +99,7 @@ const Form = props => {
             name='special'
             value={values.special}
             onChange={onChange}
+            id='special-text'
           />
         </div>
 
@@ -105,7 +108,7 @@ const Form = props => {
           <div>{errors.size}</div>
         </div>
 
-        <button disabled={disabled}>Add to Order</button>
+        <button id='order-button' disabled={disabled}>Add to Order</button>
       </form>
     </div>
   )
